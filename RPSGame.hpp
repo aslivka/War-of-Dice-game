@@ -1,10 +1,18 @@
+/******************************************************************************
+** Author       : Paul Bodnar, Jeremy Einhorn, Michael Johnson, Amir Rasekh and
+**                Artem Slivka
+** Date         : 07/30/2017
+** Description  : RPSGame.hpp is the header file for class RPSGame. It contains
+**				  function declarations for the class.
+******************************************************************************/
+
 #ifndef RPSGAME_HPP
 #define RPSGAME_HPP
 
+#include "Tool.hpp"
 #include "Rock.hpp"
 #include "Paper.hpp"
 #include "Scissors.hpp"
-#include <iostream>
 #include <string>
 
 using namespace std;
@@ -22,15 +30,17 @@ protected:
 	int sPower = 1;
 
 public:
-
 	RPSGame();
 	~RPSGame();
 	bool menu();
 	void differentStrengths();
-	int setDiffStrength();
+	int getUnsignedInt(string prompt) const;
+	static bool isUnsignedInt(string);
 	bool startGame();
-	bool isAChar(const string input);
 	string computerChoice();
-	void determineWinner(const int*);		
+	void determineWinner(const int*);
+
+	//static int setDiffStrength();
+	//static bool isAChar(const string&);
 };
 #endif

@@ -1,69 +1,86 @@
+/******************************************************************************
+** Author       : Paul Bodnar, Jeremy Einhorn, Michael Johnson, Amir Rasekh and
+**                Artem Slivka
+** Date         : 07/30/2017
+** Description  : Paper.cpp is the implementation file for class Paper. It contains
+**				  function definitions for the class.
+******************************************************************************/
+
 #include "Paper.hpp"
 
+/*********************************************************************
+** Description	: This is the default constructor for class Paper.
+*********************************************************************/
 Paper::Paper() : Tool(1, 'p')
 {
-		strength = 1;
+	strength = 1;
 }
 
+/*********************************************************************
+** Description	: This is the 2nd constructor for class Paper.
+**				  It allows user to set strength.
+*********************************************************************/
 Paper::Paper(int eStrength) : Tool(eStrength, 'p')
 {
 	SetStrength(eStrength);
 }
 
+/*********************************************************************
+** Description	: This is the default destructor for class Paper.
+*********************************************************************/
 Paper::~Paper()
 {
+
 }
 
-int Paper:: fight(Tool* a)
+/*********************************************************************
+** Description	: This function allows Paper object to fight another
+**				  Tool opponent. 
+*********************************************************************/
+int Paper::fight(Tool* a)
 {	
-		if (a->getType() == 'r')
-		{
-			
-			//compare strength
-			if (PAPERAGAINSTROCK *strength > this->strength) //PAPERAGAINSTROCK *
-			{
-				
-				return -1;
-			}
-			if (PAPERAGAINSTROCK *strength < this->strength)  //PAPERAGAINSTROCK *
-			{
-				
-				return 1;
-			}
-
-			else
-				return 0;
+	if (a->getType() == 'r')
+	{	
+		//compare strength
+		if (PVR * strength > this->strength)
+		{	
+			return -1;
+		}
+		if (PVR * strength < this->strength)
+		{	
+			return 1;
 		}
 
-		if (a->getType() == 'p')
+		return 0;
+	}
+
+	if (a->getType() == 'p')
+	{
+		//compare strength
+		if (PVP * strength > this->strength) 
+		{	
+			return -1;
+		}
+		if (PVP * strength < this->strength)
 		{
-			//compare strength
-			if (PAPERAGAINSTPAPER *strength > this->strength)  //PAPERAGAINSTPAPER *
-			{
-				
-				return -1;
-			}
-			if (PAPERAGAINSTPAPER *strength < this->strength)  //PAPERAGAINSTPAPER *
-			{
-				return 1;
-			}
-			else
-				return 0;
+			return 1;
 		}
 
-		if (a->getType() == 's')
+		return 0;
+	}
+
+	if (a->getType() == 's')
+	{	
+		//compare strength
+		if (PVS * strength > this->strength)
 		{
-			
-			//compare strength
-			if (PAPERAGAINSTSCISSORS *strength > this->strength +1)  //PAPERAGAINSTSCISSORS *
-			{
-				return -1;
-			}
-			if (PAPERAGAINSTSCISSORS *strength < this->strength +1)  //PAPERAGAINSTSCISSORS *
-			{
-				return 1;
-			}
-			else
-				return 0;
+			return -1;
 		}
+		if (PVS * strength < this->strength) 
+		{
+			return 1;
+		}
+
+		return 0;
+	}
 }

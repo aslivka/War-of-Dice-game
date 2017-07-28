@@ -1,208 +1,238 @@
-#include "RPSGame.hpp"
+/******************************************************************************
+** Author       : Paul Bodnar, Jeremy Einhorn, Michael Johnson, Amir Rasekh and
+**                Artem Slivka
+** Date         : 07/30/2017
+** Description  : RPSGame.cpp is the implementation file for class RPSGame. It 
+**				  contains function definitions for the class. The class
+**				  manages play for a game of Rock Paper Scissors.
+******************************************************************************/
 
+#include "RPSGame.hpp"
+#include <iostream>
+
+/*********************************************************************
+** Description	: This is the default constructor for class RPSGame.
+*********************************************************************/
 RPSGame::RPSGame()
 {
+	human = NULL;
+	computer = NULL;
 	human_wins = 0;
 	computer_wins = 0;
 	ties = 0;
 }
 
+/*********************************************************************
+** Description	: This is the default destructor for class RPSGame.
+*********************************************************************/
 RPSGame::~RPSGame()
 {
-
+	if (human != NULL)
+		delete human;
+	if (computer != NULL)
+		delete computer;
 }
 
+/*********************************************************************
+** Description	: This function controls setup for the game. It allows 
+**				  user to select if they want to play with preset 
+**				  strengths or enter the strengths instead for the
+**				  human player.
+*********************************************************************/
 bool RPSGame::menu()
 {
-		bool testAgain = true;
+	string userDiffStrenChoice = "";
 
-		do
+	cout << "Welcome to Rock, Paper, Scissors! Do you want to choose different" 
+	     << " strengths for the tools?" << endl;
+	do
+	{
+		cout << "Enter Y for YES and N for NO: ";
+		getline(cin, userDiffStrenChoice);
+	} while (userDiffStrenChoice != "y" && 
+		     userDiffStrenChoice != "n" && 
+		     userDiffStrenChoice != "Y" && 
+		     userDiffStrenChoice != "N");
+
+	if (userDiffStrenChoice == "y" || userDiffStrenChoice == "Y")
+	{
+		differentStrengths();
+		if (!startGame())
 		{
-			cout << "Welcome to Rock, Paper, Scissors! Do you want to choose different strengths for the tools?" << endl;
-			cout << "Enter Y, for YES and N for NO" << endl;
-			string a = ""; //create string to hold entry   bool isAChar(const string input)
-			getline(cin, a); //store entered line in variable
-			if (isAChar(a))
-			{
-				char b = a[0];
-				if (b == 'y' || b == 'Y')
-				{
-					differentStrengths();
-					if (startGame() == false)
-					{
-						return false;
-					}
-				}
-
-				if (b == 'n' || b == 'N')
-				{
-					if (startGame() == false)
-					{
-						return false;
-					}
-				}
-			}
-
-		} while (testAgain);
+			return false;
+		}
+	}
+	else
+	{
+		if (!startGame())
+		{
+			return false;
+		}
+	}
 }
 
-
+/*********************************************************************
+** Description	: This function manages user input for different
+**				  strength of tools. 
+*********************************************************************/
 void RPSGame::differentStrengths()
 {
+	string userInput = "";
+
 	cout << "Would you like to set the strength of rock?" << endl;
-	cout << "Enter 'y' for yes and 'n' for no" << endl;
-	
-	string userInput;
-	getline(cin, userInput);
-
-	char input = userInput[0];
-
-	while (input != 'y' && input != 'n')
+	do
 	{
-		cout << "Enter 'y' for yes and 'n' for no" << endl;
-		cin >> userInput;
-		char input = userInput[0];
-	}
+		cout << "Enter 'y' for yes and 'n' for no: ";
+		getline(cin, userInput);
+	} while (userInput != "y" && userInput != "n"
+          && userInput != "Y" && userInput != "N");
 
-	if (input == 'y')
+	if (userInput == "y" || userInput == "Y")
 	{
-		rPower = setDiffStrength();
-		cin.ignore();
+		do
+		{
+			cout << "I'm here " << endl << endl;
+			system("pause");
+			rPower = getUnsignedInt("Choose a number between 1 and 20: ");
+		} while (rPower < 1 || rPower > 20);
 	}
 	/*************************************************************/
 
 	cout << "Would you like to set the strength of paper?" << endl;
-	cout << "Enter 'y' for yes and 'n' for no" << endl;
-
-	getline(cin, userInput);
-
-	input = userInput[0];
-
-	while (input != 'y' && input != 'n')
+	do
 	{
-		cout << "Enter 'y' for yes and 'n' for no" << endl;
-		cin >> userInput;
-		input = userInput[0];
-	}
+		cout << "Enter 'y' for yes and 'n' for no: ";
+		getline(cin, userInput);
+	} while (userInput != "y" && userInput != "n"
+          && userInput != "Y" && userInput != "N");
 
-	if (input == 'y')
+	if (userInput == "y" || userInput == "Y")
 	{
-		pPower = setDiffStrength();
-		cin.ignore();
+		do
+		{
+			pPower = getUnsignedInt("Choose a number between 1 and 20: ");
+		} while (pPower < 1 || pPower > 20);
 	}
-
 	/*************************************************************/
 
 	cout << "Would you like to set the strength of scissors?" << endl;
-	cout << "Enter 'y' for yes and 'n' for no" << endl;
-
-	getline(cin, userInput);
-
-	input = userInput[0];
-
-	while (input != 'y' && input != 'n')
+	do
 	{
-		cout << "Enter 'y' for yes and 'n' for no" << endl;
-		cin >> userInput;
-		input = userInput[0];
-	}
+		cout << "Enter 'y' for yes and 'n' for no: ";
+		getline(cin, userInput);
+	} while (userInput != "y" && userInput != "n"
+		  && userInput != "Y" && userInput != "N");
 
-	if (input == 'y')
+	if (userInput == "y" || userInput == "Y")
 	{
-		sPower = setDiffStrength();
-		cin.ignore();
-	}
-}
-
-
-int RPSGame::setDiffStrength()
-{
-	cout << "Choose a number between 1 and 20" << endl;
-
-	int strenInput;
-	cin >> strenInput;
-
-	while (strenInput < 1 || strenInput > 20)
-	{
-		cout << "Choose a number between 1 and 20" << endl;
-		cin >> strenInput;
-	}
-
-	return strenInput;
-}
-
-
-bool RPSGame::startGame()
-{
-		bool testAgain = true;
 		do
 		{
-			cout << "Choose your tool (r-rock, p-paper, s-scissor, e-exit):";
-			string a = ""; //create string to hold entry   bool isAChar(const string input)
-			getline(cin, a); //store entered line in variable
-			if (isAChar(a))
-			{
-				int result;
-				string computerSelected;
-				char b = a[0];
-				if (b == 'r' || b == 'R')
-				{
-					human = new Rock(rPower);
-					computerSelected = computerChoice();
-					cout << endl;
-					cout << "Computer chose " << computerSelected << "." << endl;
-					cout << endl;
-					//computer = new Tool();
-					//computer->SetType(computerSelected[0]);
-					result = human->fight(computer);
-					
-					determineWinner(&result);
-				}
-
-				if (b == 'p' || b == 'P')
-				{
-					human = new Paper(pPower);
-					computerSelected = computerChoice();
-					cout << endl;
-					cout << "Computer chose " << computerSelected << "." << endl;
-					cout << endl;
-					//computer = new Tool();
-					//computer->SetType(computerSelected[0]);
-					result = human->fight(computer);
-					
-					determineWinner(&result);						
-				}
-
-				if (b == 's' || b == 'S')
-				{
-					human = new Scissors(sPower);
-					computerSelected = computerChoice();
-					cout << endl;
-					cout << "Computer chose " << computerSelected << "." << endl;
-					cout << endl;
-					//computer = new Tool();
-					//computer->SetType(computerSelected[0]);
-					result = human->fight(computer);
-					
-					determineWinner(&result);
-				}
-				
-				if (b == 'e' || b == 'E')
-				{
-
-					return false;
-				}
-			}
-			delete human;
-			delete computer;
-		} while (testAgain);
+			sPower = getUnsignedInt("Choose a number between 1 and 20: ");
+		} while (sPower < 1 || sPower > 20);
+	}
 }
 
 
+/*********************************************************************
+** Description	: This function does user validation for
+**				  unsigned integers.
+*********************************************************************/
+int RPSGame::getUnsignedInt(string prompt) const
+{
+	string userInput;
+
+	do
+	{
+		cout << prompt;
+		getline(cin, userInput);
+	} while (!(isUnsignedInt(userInput)) || userInput == "0" || userInput == "");
+
+	return stoi(userInput);
+}
+
+/*********************************************************************
+** Description	: This function checks if a test string has the format
+**				  of unsigned integer. 
+*********************************************************************/
+bool RPSGame::isUnsignedInt(string input)
+{
+	for (size_t i = 0; i < input.size(); i++)
+	{
+		if (!isdigit(input[i]))
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
+/*********************************************************************
+** Description	: This function completes a round of gameplay, then 
+**				  displays the win/los/tie results.
+*********************************************************************/
+bool RPSGame::startGame()
+{
+	do
+	{
+		string userChoice = "";
+		int result;
+		string computerSelected;
+
+		do
+		{
+			cout << "Choose your tool (r-rock, p-paper, s-scissor, e-exit): ";
+			getline(cin, userChoice); //store entered line in variable
+		} while (userChoice != "r" && userChoice != "R"
+			  && userChoice != "p" && userChoice != "P"
+			  && userChoice != "s" && userChoice != "S"
+			  && userChoice != "e" && userChoice != "E");
+
+		if (userChoice == "r" || userChoice == "R")
+		{
+			human = new Rock(rPower);
+			computerSelected = computerChoice();
+			cout << endl;
+			cout << "Computer chose " << computerSelected << "." << endl
+				 << endl;
+			result = human->fight(computer);
+			determineWinner(&result);
+		}
+
+		if (userChoice == "p" || userChoice == "P")
+		{
+			human = new Paper(pPower);
+			computerSelected = computerChoice();
+			cout << endl;
+			cout << "Computer chose " << computerSelected << "." << endl
+				 << endl;
+			result = human->fight(computer);
+			determineWinner(&result);
+		}
+
+		if (userChoice == "s" || userChoice == "S")
+		{
+			human = new Scissors(sPower);
+			computerSelected = computerChoice();
+			cout << endl;
+			cout << "Computer chose " << computerSelected << "." << endl << endl;
+			result = human->fight(computer);
+			determineWinner(&result);
+		}
+
+		if (userChoice == "e" || userChoice == "E")
+		{
+			return false;
+		}
+	} while (true);
+}
+
+/*********************************************************************
+** Description	: This function randomly chooses the tool type
+**				  for the computer player and returns the selected type.
+*********************************************************************/
 string RPSGame::computerChoice()
 {
-	
-	int rNumber = rand() % 3 + 1;
+	int rNumber = rand() % 3;
 
 		if (rNumber == 1)
 		{
@@ -221,23 +251,10 @@ string RPSGame::computerChoice()
 		}
 }
 
-
-bool RPSGame::isAChar(const string input)
-{
-		//It's easier during implementation to assume the value is char, then
-		//check for cases where this condition is violated
-		bool charValue = true;
-
-		unsigned int strLen = input.length();
-
-		if (strLen != 1 || isalpha(input[0]) == false)
-		{
-			charValue = false;
-		}
-
-		return charValue;
-}
-
+/*********************************************************************
+** Description	: This function calculates the round results for both
+**				  players, then displays the round and overall results.
+*********************************************************************/
 void RPSGame::determineWinner(const int *result)
 {
 	if (*result == 1)
@@ -252,7 +269,6 @@ void RPSGame::determineWinner(const int *result)
 		cout << "Ties: " << ties << endl;
 		cout << endl;
 		cout << endl;
-
 	}
 
 	if (*result == -1)
@@ -284,3 +300,29 @@ void RPSGame::determineWinner(const int *result)
 	}
 }
 
+//bool RPSGame::isAChar(const string& input)
+//{
+//		//It's easier during implementation to assume the value is char, then
+//		//check for cases where this condition is violated
+//		bool charValue = true;
+//
+//		unsigned int strLen = input.length();
+//
+//		if (strLen != 1 || isalpha(input[0]) == false)
+//		{
+//			charValue = false;
+//		}
+//
+//		return charValue;
+//}
+
+//int RPSGame::setDiffStrength()
+//{
+//	int strenInput;
+//
+//	do
+//	{
+//		strenInput = isUnsignedInt("Choose a number between 1 and 20: ");
+//	} while (strenInput < 1 || strenInput > 20);
+//	return strenInput;
+//}
