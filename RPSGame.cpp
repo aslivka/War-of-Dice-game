@@ -2,7 +2,7 @@
 ** Author       : Paul Bodnar, Jeremy Einhorn, Michael Johnson, Amir Rasekh and
 **                Artem Slivka
 ** Date         : 07/30/2017
-** Description  : RPSGame.cpp is the implementation file for class RPSGame. It 
+** Description  : RPSGame.cpp is the implementation file for class RPSGame. It
 **				  contains function definitions for the class. The class
 **				  manages play for a game of Rock Paper Scissors.
 ******************************************************************************/
@@ -20,6 +20,9 @@ RPSGame::RPSGame()
 	human_wins = 0;
 	computer_wins = 0;
 	ties = 0;
+	rPower = 1;
+	pPower = 1;
+	sPower = 1;
 }
 
 /*********************************************************************
@@ -29,19 +32,19 @@ RPSGame::~RPSGame()
 {
 	if (human != NULL)
 	{
-	delete human;
-	human = NULL;
+		delete human;
+		human = NULL;
 	}
 	if (computer != NULL)
 	{
-	delete computer;
-	computer = NULL;
+		delete computer;
+		computer = NULL;
 	}
 }
- 
+
 /*********************************************************************
-** Description	: This function controls setup for the game. It allows 
-**				  user to select if they want to play with preset 
+** Description	: This function controls setup for the game. It allows
+**				  user to select if they want to play with preset
 **				  strengths or enter the strengths instead for the
 **				  human player.
 *********************************************************************/
@@ -49,17 +52,17 @@ bool RPSGame::menu()
 {
 	string userDiffStrenChoice = "";
 
-	cout << "Welcome to Rock, Paper, Scissors! Do you want to choose different" 
-	     << " strengths for the tools?" << endl;
+	cout << "Welcome to Rock, Paper, Scissors! Do you want to choose different"
+		<< " strengths for the tools?" << endl;
 
 	do
 	{
 		cout << "Enter 'y' for yes and 'n' for no: ";
 		getline(cin, userDiffStrenChoice);
-	} while (userDiffStrenChoice != "y" && 
-		     userDiffStrenChoice != "n" && 
-		     userDiffStrenChoice != "Y" && 
-		     userDiffStrenChoice != "N");
+	} while (userDiffStrenChoice != "y" &&
+             userDiffStrenChoice != "n" &&
+             userDiffStrenChoice != "Y" &&
+             userDiffStrenChoice != "N");
 
 	if (userDiffStrenChoice == "y" || userDiffStrenChoice == "Y")
 	{
@@ -81,7 +84,7 @@ bool RPSGame::menu()
 
 /*********************************************************************
 ** Description	: This function manages user input for different
-**				  strength of tools. 
+**				  strength of tools.
 *********************************************************************/
 void RPSGame::differentStrengths()
 {
@@ -99,8 +102,6 @@ void RPSGame::differentStrengths()
 	{
 		do
 		{
-			//cout << "I'm here " << endl << endl;
-			//system("pause");
 			rPower = getUnsignedInt("Choose a number between 1 and 20: ");
 		} while (rPower < 1 || rPower > 20);
 	}
@@ -129,7 +130,7 @@ void RPSGame::differentStrengths()
 		cout << "Enter 'y' for yes and 'n' for no: ";
 		getline(cin, userInput);
 	} while (userInput != "y" && userInput != "n"
-		  && userInput != "Y" && userInput != "N");
+          && userInput != "Y" && userInput != "N");
 
 	if (userInput == "y" || userInput == "Y")
 	{
@@ -153,14 +154,15 @@ int RPSGame::getUnsignedInt(string prompt) const
 	{
 		cout << prompt;
 		getline(cin, userInput);
-	} while (!(isUnsignedInt(userInput)) || userInput == "0" || userInput == "");
+	} while (!(isUnsignedInt(userInput)) || userInput == "0" || 
+                                            userInput == "");
 
 	return stoi(userInput);
 }
 
 /*********************************************************************
 ** Description	: This function checks if a test string has the format
-**				  of unsigned integer. 
+**				  of unsigned integer.
 *********************************************************************/
 bool RPSGame::isUnsignedInt(string input)
 {
@@ -175,7 +177,7 @@ bool RPSGame::isUnsignedInt(string input)
 }
 
 /*********************************************************************
-** Description	: This function completes a round of game-play, then 
+** Description	: This function completes a round of game-play, then
 **				  displays the win/lose/tie results.
 *********************************************************************/
 bool RPSGame::startGame()
@@ -192,9 +194,9 @@ bool RPSGame::startGame()
 			cout << "Choose your tool (r-rock, p-paper, s-scissor, e-exit): ";
 			getline(cin, userChoice);
 		} while (userChoice != "r" && userChoice != "R"
-			  && userChoice != "p" && userChoice != "P"
-			  && userChoice != "s" && userChoice != "S"
-			  && userChoice != "e" && userChoice != "E");
+              && userChoice != "p" && userChoice != "P"
+              && userChoice != "s" && userChoice != "S"
+              && userChoice != "e" && userChoice != "E");
 
 		if (userChoice == "r" || userChoice == "R")
 		{
@@ -202,7 +204,7 @@ bool RPSGame::startGame()
 			computerSelected = computerChoice();
 			cout << endl;
 			cout << "Computer chose " << computerSelected << "." << endl
-				 << endl;
+				<< endl;
 			result = human->fight(computer);
 			determineWinner(&result);
 		}
@@ -213,7 +215,7 @@ bool RPSGame::startGame()
 			computerSelected = computerChoice();
 			cout << endl;
 			cout << "Computer chose " << computerSelected << "." << endl
-				 << endl;
+				<< endl;
 			result = human->fight(computer);
 			determineWinner(&result);
 		}
@@ -223,20 +225,20 @@ bool RPSGame::startGame()
 			human = new Scissors(sPower);
 			computerSelected = computerChoice();
 			cout << endl;
-			cout << "Computer chose " << computerSelected << "." << endl 
-                 << endl;
+			cout << "Computer chose " << computerSelected << "." << endl
+				<< endl;
 			result = human->fight(computer);
 			determineWinner(&result);
 		}
-		if(human != NULL)
- 		{
-		delete human;
-		human = NULL;
+		if (human != NULL)
+		{
+			delete human;
+			human = NULL;
 		}
-		if(computer !=NULL)
-		{	
-		delete computer;
-		computer = NULL;
+		if (computer != NULL)
+		{
+			delete computer;
+			computer = NULL;
 		}
 	} while (userChoice != "e" && userChoice != "E");
 
@@ -252,21 +254,21 @@ string RPSGame::computerChoice()
 	// Return a random number between 0 and 2 inclusively
 	int rNumber = rand() % 3;
 
-		if (rNumber == 0)
-		{
-			computer = new Rock(rPower);
-			return "rock";
-		}
-		if (rNumber == 1)
-		{
-			computer = new Paper(pPower);
-			return "paper";
-		}
-		if (rNumber == 2)
-		{
-			computer = new Scissors(sPower);
-			return "scissors";
-		}
+	if (rNumber == 0)
+	{
+		computer = new Rock(rPower);
+		return "rock";
+	}
+	if (rNumber == 1)
+	{
+		computer = new Paper(pPower);
+		return "paper";
+	}
+	if (rNumber == 2)
+	{
+		computer = new Scissors(sPower);
+		return "scissors";
+	}
 }
 
 /*********************************************************************
