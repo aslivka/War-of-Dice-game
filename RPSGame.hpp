@@ -33,6 +33,7 @@ public:
 	RPSGame();
 	~RPSGame();
 	bool menu();
+	void clearValues();
 	void differentStrengths();
 	int getUnsignedInt(string prompt) const;
 	static bool isUnsignedInt(string);

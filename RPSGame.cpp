@@ -45,6 +45,8 @@ bool RPSGame::menu()
 
 	cout << "Welcome to Rock, Paper, Scissors! Do you want to choose different" 
 	     << " strengths for the tools?" << endl;
+	clearValues();
+
 	do
 	{
 		cout << "Enter Y for YES and N for NO: ";
@@ -71,6 +73,17 @@ bool RPSGame::menu()
 	}
 }
 
+
+void RPSGame::clearValues()
+{
+	rPower = 1;
+	pPower = 1;
+	sPower = 1;
+	human_wins = 0;
+	computer_wins = 0;
+	ties = 0;
+}
+
 /*********************************************************************
 ** Description	: This function manages user input for different
 **				  strength of tools. 
@@ -91,8 +104,8 @@ void RPSGame::differentStrengths()
 	{
 		do
 		{
-			cout << "I'm here " << endl << endl;
-			system("pause");
+			//cout << "I'm here " << endl << endl;
+			//system("pause");
 			rPower = getUnsignedInt("Choose a number between 1 and 20: ");
 		} while (rPower < 1 || rPower > 20);
 	}

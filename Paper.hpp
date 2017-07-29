@@ -18,5 +18,6 @@ public:
 	Paper(int eStrength);
 	~Paper();
 	int fight(Tool* a) override;
+	int getStrength();
 };
 #endif

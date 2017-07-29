@@ -20,6 +20,7 @@ public:
 	Scissors(int eStrength);
 	~Scissors();
 	int fight(Tool* a) override;
+	int getStrength();
 };
 
 #endif

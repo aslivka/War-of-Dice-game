@@ -69,3 +69,8 @@ int Tool::fight(Tool* opponent)
 {
 	return 0;
 }
+
+int Tool::getStrength()
+{
+	return strength;
+}

@@ -18,6 +18,7 @@ public:
 	Rock(int eStrength);
 	~Rock();
 	int fight(Tool* a) override;
+	int getStrength();
 }; 
 
 #endif

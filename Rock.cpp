@@ -42,11 +42,11 @@ int Rock::fight(Tool* a)
 	if (a->getType() == 'r')
 	{
 		//compare strength
-		if (RVR * strength > this->strength)
+		if (RVR * strength > a->getStrength())
 		{
 			return -1;
 		}
-		if (RVR * strength < this->strength)
+		if (RVR * strength < a->getStrength())
 		{
 			return 1;
 		}
@@ -57,11 +57,11 @@ int Rock::fight(Tool* a)
 	if (a->getType() == 'p')
 	{
 		//compare strength
-		if (RVP * strength > this->strength)
+		if (RVP * strength > a->getStrength())
 		{
 			return -1;
 		}
-		if (RVP * strength < this->strength)
+		if (RVP * strength < a->getStrength())
 		{
 			return 1;
 		}
@@ -72,15 +72,20 @@ int Rock::fight(Tool* a)
 	if (a->getType() == 's')
 	{
 		//compare strength
-		if (RVS * strength > this->strength)
+		if (RVS * strength > a->getStrength())
 		{
 			return -1;
 		}
-		if (RVS * strength < this->strength)
+		if (RVS * strength < a->getStrength())
 		{
 			return 1;
 		}
 
 		return 0;
 	}
+}
+
+int Rock::getStrength()
+{
+	return strength;
 }

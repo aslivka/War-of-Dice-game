@@ -42,11 +42,11 @@ int Scissors::fight(Tool* a)
 	if (a->getType() == 'r')
 	{
 		//compare strength
-		if (SVR *strength > this->strength)
+		if (SVR *strength > a->getStrength())
 		{
 			return -1;
 		}
-		if (SVR *strength < this->strength)
+		if (SVR *strength < a->getStrength())
 		{
 			return  1;
 		}
@@ -57,11 +57,11 @@ int Scissors::fight(Tool* a)
 	if (a->getType() == 'p')
 	{
 		//compare strength
-		if (SVP * strength > this->strength)
+		if (SVP * strength > a->getStrength())
 		{
 			return -1;
 		}
-		if (SVP * strength < this->strength)
+		if (SVP * strength < a->getStrength())
 		{
 			return 1;
 		}
@@ -72,16 +72,21 @@ int Scissors::fight(Tool* a)
 	if (a->getType() == 's')
 	{
 		//compare strength
-		if (SVS * strength > this->strength)
+		if (SVS * strength > a->getStrength())
 		{
 			return -1;
 		}
-		if (SVS * strength < this->strength)
+		if (SVS * strength < a->getStrength())
 		{
 			return 1;
 		}
 
 		return 0;
 	}
+}
+
+int Scissors::getStrength()
+{
+	return strength;
 }
 
