@@ -28,11 +28,17 @@ RPSGame::RPSGame()
 RPSGame::~RPSGame()
 {
 	if (human != NULL)
-		delete human;
+	{
+	delete human;
+	human = NULL;
+	}
 	if (computer != NULL)
-		delete computer;
+	{
+	delete computer;
+	computer = NULL;
+	}
 }
-
+ 
 /*********************************************************************
 ** Description	: This function controls setup for the game. It allows 
 **				  user to select if they want to play with preset 
@@ -221,6 +227,16 @@ bool RPSGame::startGame()
                  << endl;
 			result = human->fight(computer);
 			determineWinner(&result);
+		}
+		if(human != NULL)
+ 		{
+		delete human;
+		human = NULL;
+		}
+		if(computer !=NULL)
+		{	
+		delete computer;
+		computer = NULL;
 		}
 	} while (userChoice != "e" && userChoice != "E");
 
