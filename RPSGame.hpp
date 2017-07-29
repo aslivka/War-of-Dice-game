@@ -25,9 +25,9 @@ protected:
 	int human_wins;
 	int computer_wins;
 	int ties;
-	int rPower = 1;
-	int pPower = 1;
-	int sPower = 1;
+	int rPower;
+	int pPower;
+	int sPower;
 
 public:
 	RPSGame();
