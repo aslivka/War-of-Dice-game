@@ -42,11 +42,11 @@ int Paper::fight(Tool* a)
 	if (a->getType() == 'r')
 	{	
 		//compare strength
-		if (PVR * strength > this->strength)
+		if (PVR * strength > a->getStrength())
 		{	
 			return -1;
 		}
-		if (PVR * strength < this->strength)
+		if (PVR * strength < a->getStrength())
 		{	
 			return 1;
 		}
@@ -57,11 +57,11 @@ int Paper::fight(Tool* a)
 	if (a->getType() == 'p')
 	{
 		//compare strength
-		if (PVP * strength > this->strength) 
+		if (PVP * strength > a->getStrength())
 		{	
 			return -1;
 		}
-		if (PVP * strength < this->strength)
+		if (PVP * strength < a->getStrength())
 		{
 			return 1;
 		}
@@ -72,15 +72,20 @@ int Paper::fight(Tool* a)
 	if (a->getType() == 's')
 	{	
 		//compare strength
-		if (PVS * strength > this->strength)
+		if (PVS * strength > a->getStrength())
 		{
 			return -1;
 		}
-		if (PVS * strength < this->strength) 
+		if (PVS * strength < a->getStrength())
 		{
 			return 1;
 		}
 
 		return 0;
 	}
+}
+
+int Paper::getStrength()
+{
+	return strength;
 }
