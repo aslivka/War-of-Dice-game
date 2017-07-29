@@ -33,15 +33,11 @@ public:
 	RPSGame();
 	~RPSGame();
 	bool menu();
-	void clearValues();
 	void differentStrengths();
 	int getUnsignedInt(string prompt) const;
 	static bool isUnsignedInt(string);
 	bool startGame();
 	string computerChoice();
 	void determineWinner(const int*);
-
-	//static int setDiffStrength();
-	//static bool isAChar(const string&);
 };
 #endif

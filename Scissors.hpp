@@ -10,8 +10,6 @@
 #define SCISSORS_HPP
 
 #include "Tool.hpp"
-#include <string>
-#include <iostream>
 
 class Scissors : public Tool
 {
@@ -20,7 +18,7 @@ public:
 	Scissors(int eStrength);
 	~Scissors();
 	int fight(Tool* a) override;
-	int getStrength();
+	int getStrength() override;
 };
 
 #endif

@@ -45,11 +45,10 @@ bool RPSGame::menu()
 
 	cout << "Welcome to Rock, Paper, Scissors! Do you want to choose different" 
 	     << " strengths for the tools?" << endl;
-	clearValues();
 
 	do
 	{
-		cout << "Enter Y for YES and N for NO: ";
+		cout << "Enter 'y' for yes and 'n' for no: ";
 		getline(cin, userDiffStrenChoice);
 	} while (userDiffStrenChoice != "y" && 
 		     userDiffStrenChoice != "n" && 
@@ -73,16 +72,6 @@ bool RPSGame::menu()
 	}
 }
 
-
-void RPSGame::clearValues()
-{
-	rPower = 1;
-	pPower = 1;
-	sPower = 1;
-	human_wins = 0;
-	computer_wins = 0;
-	ties = 0;
-}
 
 /*********************************************************************
 ** Description	: This function manages user input for different
@@ -180,21 +169,22 @@ bool RPSGame::isUnsignedInt(string input)
 }
 
 /*********************************************************************
-** Description	: This function completes a round of gameplay, then 
-**				  displays the win/los/tie results.
+** Description	: This function completes a round of game-play, then 
+**				  displays the win/lose/tie results.
 *********************************************************************/
 bool RPSGame::startGame()
 {
+	string userChoice = "";
+
 	do
 	{
-		string userChoice = "";
 		int result;
 		string computerSelected;
 
 		do
 		{
 			cout << "Choose your tool (r-rock, p-paper, s-scissor, e-exit): ";
-			getline(cin, userChoice); //store entered line in variable
+			getline(cin, userChoice);
 		} while (userChoice != "r" && userChoice != "R"
 			  && userChoice != "p" && userChoice != "P"
 			  && userChoice != "s" && userChoice != "S"
@@ -227,16 +217,14 @@ bool RPSGame::startGame()
 			human = new Scissors(sPower);
 			computerSelected = computerChoice();
 			cout << endl;
-			cout << "Computer chose " << computerSelected << "." << endl << endl;
+			cout << "Computer chose " << computerSelected << "." << endl 
+                 << endl;
 			result = human->fight(computer);
 			determineWinner(&result);
 		}
+	} while (userChoice != "e" && userChoice != "E");
 
-		if (userChoice == "e" || userChoice == "E")
-		{
-			return false;
-		}
-	} while (true);
+	return false;
 }
 
 /*********************************************************************
@@ -245,19 +233,20 @@ bool RPSGame::startGame()
 *********************************************************************/
 string RPSGame::computerChoice()
 {
+	// Return a random number between 0 and 2 inclusively
 	int rNumber = rand() % 3;
 
-		if (rNumber == 1)
+		if (rNumber == 0)
 		{
 			computer = new Rock(rPower);
 			return "rock";
 		}
-		if (rNumber == 2)
+		if (rNumber == 1)
 		{
 			computer = new Paper(pPower);
 			return "paper";
 		}
-		else
+		if (rNumber == 2)
 		{
 			computer = new Scissors(sPower);
 			return "scissors";
@@ -312,30 +301,3 @@ void RPSGame::determineWinner(const int *result)
 		cout << endl;
 	}
 }
-
-//bool RPSGame::isAChar(const string& input)
-//{
-//		//It's easier during implementation to assume the value is char, then
-//		//check for cases where this condition is violated
-//		bool charValue = true;
-//
-//		unsigned int strLen = input.length();
-//
-//		if (strLen != 1 || isalpha(input[0]) == false)
-//		{
-//			charValue = false;
-//		}
-//
-//		return charValue;
-//}
-
-//int RPSGame::setDiffStrength()
-//{
-//	int strenInput;
-//
-//	do
-//	{
-//		strenInput = isUnsignedInt("Choose a number between 1 and 20: ");
-//	} while (strenInput < 1 || strenInput > 20);
-//	return strenInput;
-//}

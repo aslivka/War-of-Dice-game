@@ -1,5 +1,5 @@
 /******************************************************************************
-** Program      : Group Project:Rock, Paper Scissors
+** Program      : Group Project: Rock, Paper, Scissors
 ** Author       : Paul Bodnar, Jeremy Einhorn, Michael Johnson, Amir Rasekh and
 **                Artem Slivka
 ** Date         : 07/30/2017
@@ -20,7 +20,6 @@ int main()
 {	
 	srand(size_t(time(NULL)));
 	
-	RPSGame game1;
 	string menuChoice;
 
 	//Starting the menu for the program
@@ -39,7 +38,8 @@ int main()
 	
 		//Starting game
 		if (menuChoice == "1")
-		{	
+		{
+			RPSGame game1;
 			game1.menu();
 		}
 		
@@ -47,6 +47,3 @@ int main()
 
 	return 0;
 }
-
-
-

@@ -5,11 +5,6 @@
 ** Description  : Tool.hpp is the header file for class Tool. It contains
 **				  function declarations for the class.
 ******************************************************************************/
-#include <iostream>
-
-using std::cout;
-using std::endl;
-
 #ifndef TOOL_HPP
 #define TOOL_HPP
 
